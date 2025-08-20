@@ -8,7 +8,6 @@
     <artifactId>RestassuredApiTest</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <!-- Versiyonlar tek yerden -->
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
@@ -22,7 +21,6 @@
         <slf4j.version>2.0.13</slf4j.version>
     </properties>
 
-    <!-- JUnit sürümlerini BOM ile hizala -->
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -36,7 +34,6 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- RestAssured -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>rest-assured</artifactId>
@@ -44,7 +41,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JSON Schema Validator (RestAssured eklentisi) -->
         <dependency>
             <groupId>io.rest-assured</groupId>
             <artifactId>json-schema-validator</artifactId>
@@ -52,7 +48,6 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Jackson (POJO <-> JSON) -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
@@ -60,31 +55,25 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- JUnit 5 (BOM yönetecek, sürüm yazmıyoruz) -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-api</artifactId>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter-engine</artifactId>
             <scope>test</scope>
         </dependency>
-        <!-- IDE’lerde sorunsuz discovery için -->
         <dependency>
             <groupId>org.junit.platform</groupId>
             <artifactId>junit-platform-launcher</artifactId>
             <scope>test</scope>
         </dependency>
 
-        <!-- Allure JUnit5 adapter -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-junit5</artifactId>
             <version>${allure.version}</version>
-            <scope>test</scope>
-            <!-- Eski/ayrık JUnit sürümleri gelmesin -->
             <exclusions>
                 <exclusion>
                     <groupId>org.junit.jupiter</groupId>
@@ -97,26 +86,21 @@
             </exclusions>
         </dependency>
 
-        <!-- Allure + RestAssured entegrasyon filtresi -->
         <dependency>
             <groupId>io.qameta.allure</groupId>
             <artifactId>allure-rest-assured</artifactId>
             <version>${allure.version}</version>
-            <scope>test</scope>
         </dependency>
 
-        <!-- (Opsiyonel) SLF4J simple: uyarıları susturur -->
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-simple</artifactId>
             <version>${slf4j.version}</version>
-            <scope>test</scope>
         </dependency>
     </dependencies>
 
     <build>
         <plugins>
-            <!-- JUnit5 + JDK17 ile sorunsuz test çalıştırma -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
