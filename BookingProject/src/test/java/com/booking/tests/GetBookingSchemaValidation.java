@@ -7,7 +7,7 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 public class GetBookingSchemaValidation extends BaseTest{
 
-    Integer bookingId = createBookingId("alper", "topraktepe", 7);
+    Integer bookingId = createBookingId("alper", "test", 7);
     @Test
     public void getBookingSchemaValidation() {
         given(requestSpec)

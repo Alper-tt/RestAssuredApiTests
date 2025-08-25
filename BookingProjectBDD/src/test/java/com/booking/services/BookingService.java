@@ -3,32 +3,15 @@ package com.booking.services;
 import com.booking.models.request.Booking;
 import com.booking.models.request.BookingDates;
 import com.booking.models.response.CreateBookingResponse;
-import io.qameta.allure.restassured.AllureRestAssured;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.builder.ResponseSpecBuilder;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
+import groovy.json.JsonBuilder;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import io.restassured.specification.ResponseSpecification;
 import org.junit.jupiter.api.Assertions;
-
-import java.util.Arrays;
-
+import java.util.Map;
 import static io.restassured.RestAssured.given;
-import static org.hamcrest.Matchers.lessThan;
+import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 
 public class BookingService extends BaseTest{
-
-    RequestSpecification requestSpec = new RequestSpecBuilder()
-                .setBaseUri("https://restful-booker.herokuapp.com")
-                .setAccept("application/json")
-                .addFilters(Arrays.asList(new RequestLoggingFilter(), new ResponseLoggingFilter(), new AllureRestAssured()))
-            .build();
-    ResponseSpecification responseSpec = new ResponseSpecBuilder()
-                .expectResponseTime(lessThan(2000L))
-            .build();
 
     public CreateBookingResponse createBooking(String firstname, String lastname, int totalprice){
         BookingDates bookingDates = new BookingDates("2013-02-23", "2014-10-23");
@@ -68,6 +51,7 @@ public class BookingService extends BaseTest{
                 .when()
                 .get("/booking/"+bookingId)
                 .then()
+                .spec(responseSpec)
                 .statusCode(200)
                 .extract().as(Booking.class);
     }
@@ -77,7 +61,54 @@ public class BookingService extends BaseTest{
                 .spec(requestSpec)
                 .when()
                 .get("/booking/"+bookingId);
-
         return response.statusCode() == 200;
+    }
+
+    public Booking updateBookingById(String token, int bookingId, String firstname, String lastname, int totalprice){
+        Booking booking = getBookingById(bookingId);
+        booking.setFirstname(firstname);
+        booking.setLastname(lastname);
+        booking.setTotalprice(totalprice);
+
+        return given()
+                .spec(requestSpec)
+                .contentType(ContentType.JSON)
+                .header("Cookie", "token="+token)
+                .body(booking)
+                .when()
+                .put("/booking/"+bookingId)
+                .then()
+                .spec(responseSpec)
+                .statusCode(200)
+                .extract().body().as(Booking.class);
+    }
+
+    public Booking partiallyUpdateBookingById(String token, int bookingId, String firstname, String lastname){
+        JsonBuilder updatedDetails = new JsonBuilder(
+                Map.of("firstname", firstname, "lastname", lastname, "totalprice", 5)
+        );
+
+        return given()
+                .spec(requestSpec)
+                .contentType(ContentType.JSON)
+                .header("Cookie", "token="+token)
+                .body(updatedDetails.toString())
+                .when()
+                .patch("/booking/"+bookingId)
+                .then()
+                .spec(responseSpec)
+                .statusCode(200)
+                .extract().body().as(Booking.class);
+    }
+
+    public void checkBookingSchemaValidation(int bookingId){
+        given()
+                .spec(requestSpec)
+                .when()
+                .get("/booking/"+bookingId)
+                .then()
+                .spec(responseSpec)
+                .statusCode(200)
+                .body(matchesJsonSchemaInClasspath("schemas/booking-get.json"));
     }
 }

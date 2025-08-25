@@ -6,16 +6,15 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.junit.jupiter.api.Assertions;
 
-public class GetBookingByIdSteps{
+public class GetBookingSteps{
 
     private final ScenarioContext scenarioContext;
     private final BookingService bookingService;
 
-    public GetBookingByIdSteps(ScenarioContext scenarioContext) {
+    public GetBookingSteps(ScenarioContext scenarioContext) {
         this.scenarioContext = scenarioContext;
         this.bookingService = new BookingService();
     }
-
 
     @And("Rezervasyon id ile basarili bir sekilde goruntulensin")
     public void getBookingById(){

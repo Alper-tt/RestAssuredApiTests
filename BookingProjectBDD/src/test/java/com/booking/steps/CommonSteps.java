@@ -3,7 +3,6 @@ package com.booking.steps;
 import com.booking.context.ScenarioContext;
 import com.booking.models.response.CreateBookingResponse;
 import com.booking.services.BookingService;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -13,16 +12,12 @@ public class CommonSteps {
     private final ScenarioContext scenarioContext;
     BookingService bookingService;
 
-    public CommonSteps(ScenarioContext scenarioContext, BookingService bookingService) {
+    public CommonSteps(ScenarioContext scenarioContext) {
         this.scenarioContext = scenarioContext;
         this.bookingService = new BookingService();
     }
 
-    @Given("Kullanici yeni bir rezervasyon olustursun")
-    public void requestStart(){
-    }
-
-    @And("Kullanici rezervasyon icin giris bilgilerini girsin")
+    @Given("Kullanici rezervasyon icin giris bilgilerini girsin")
     public void createToken(){
         scenarioContext.setToken(bookingService.generateToken());
     }
