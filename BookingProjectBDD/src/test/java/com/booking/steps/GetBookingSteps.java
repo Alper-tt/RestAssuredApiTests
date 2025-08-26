@@ -2,7 +2,6 @@ package com.booking.steps;
 import com.booking.context.ScenarioContext;
 import com.booking.models.request.Booking;
 import com.booking.services.BookingService;
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import org.junit.jupiter.api.Assertions;
 
@@ -16,7 +15,7 @@ public class GetBookingSteps{
         this.bookingService = new BookingService();
     }
 
-    @And("Rezervasyon id ile basarili bir sekilde goruntulensin")
+    @Then("Rezervasyon id ile basarili bir sekilde goruntulensin")
     public void getBookingById(){
         Booking booking = bookingService.getBookingById(scenarioContext.getBookingResponse().getBookingId());
         scenarioContext.setBooking(booking);

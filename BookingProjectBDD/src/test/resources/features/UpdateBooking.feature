@@ -3,6 +3,6 @@ Feature: Kullanici rezervasyon detaylarini degistirsin
     Given Kullanici rezervasyon icin giris bilgilerini girsin
     When Kullanici rezervasyonu olustursun
     Then Rezervasyon basarili sekilde olusturulsun
-    Then Kullanici rezervasyon id ile rezervasyon bilgilerini degistirsin
-    And Rezervasyon id ile basarili bir sekilde goruntulensin
-    Then Degistirilen rezervasyon bilgileri kontrol edilsin
+    When Kullanici rezervasyon id ile rezervasyon bilgilerini degistirsin
+    Then Rezervasyon id ile basarili bir sekilde goruntulensin
+    And Degistirilen rezervasyon bilgileri kontrol edilsin

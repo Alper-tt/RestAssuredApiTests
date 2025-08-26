@@ -4,4 +4,4 @@ Feature: Rezervasyon id ile rezervasyon bulunsun
     When Kullanici rezervasyonu olustursun
     Then Rezervasyon basarili sekilde olusturulsun
     And Rezervasyon id ile basarili bir sekilde goruntulensin
-    Then Goruntulenen rezervasyon bilgileri kontrol edilsin
+    And Goruntulenen rezervasyon bilgileri kontrol edilsin

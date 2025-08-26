@@ -2,7 +2,7 @@ package com.booking.steps;
 
 import com.booking.context.ScenarioContext;
 import com.booking.services.BookingService;
-import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 
 public class BookingSchemaValidation {
     private final ScenarioContext scenarioContext;
@@ -13,7 +13,7 @@ public class BookingSchemaValidation {
         this.bookingService = new BookingService();
     }
 
-    @And("Rezervasyon semasi istenilen duzende olsun")
+    @Then("Rezervasyon semasi istenilen duzende olsun")
     public void checkBookingSchemaValidation(){
         bookingService.checkBookingSchemaValidation(scenarioContext.getBookingResponse().getBookingId());
     }
